@@ -10,6 +10,18 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+.card {
+  background-color: white;
+  padding: 5px 10px 40px 10px;
+  word-wrap: break-word;
+  margin-bottom: 20px;
+}
+body {
+  background-color: #E6E6E6;
+}
+h2 {
+  text-align: center;
+}

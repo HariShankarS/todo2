@@ -11,18 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :text %><br>
-    <%= f.text_field :text %>
+    <%= f.text_field :text, class: "form-control"  %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :finished %><br>
     <%= f.check_box :finished %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.hidden_field(:parent_id, :value => params[:task_id]) %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-info btn-raised" %>
   </div>
 <% end %>

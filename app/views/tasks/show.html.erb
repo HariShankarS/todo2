@@ -1,24 +1,59 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong><h2> Task: </h2></strong>
-  <%= @task.text %>
-  <strong> <%= number_to_percentage(@task.percent, :precision => 1) %> </strong>
-</p>
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
-
-<h3> Subtasks </h3>
-
-<% @task.subtasks.each do |subtask| %>
-  <%= subtask.text %>
-  <% if subtask.finished? %>
-    100 %
-  <% else %>
-    0 %
-  <% end -%><br>
-  <%= link_to "Edit",edit_task_subtask_path(@task,subtask) %>|
-  <%= link_to 'Destroy', task_subtask_path(@task,subtask), method: :delete, data: { confirm: 'Are you sure?' } %>  <br>
-<% end -%>
-<br>
-<%= link_to "Add Subtask",new_task_subtask_path(@task) %>
+<div class="container">
+  <h2>Task</h2>
+  <div class="col-md-4 col-md-offset-4">
+    <div class="card">
+      <div class="card-height-indicator"></div>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="pull-right qty" ><strong> <%= number_to_percentage(@task.percent, :precision => 1) %></strong> </div>
+          <h6> <%= @task.created_at.strftime("%d %b %Y %l:%M %p") %></h6>
+          <div>
+            <h3><%= @task.text %></h3>
+          </div>
+          <div class="pull-right">
+            <%= link_to  edit_task_path(@task) do %>
+              <i class="material-icons">mode_edit</i> 
+            <% end %>  
+            <%= link_to task_path(@task) do %>
+              <i class="material-icons">info_outline</i> 
+            <% end %>
+            <%= link_to task_path(@task), "data-confirm" => "Are you Sure?", :method => :delete do %>
+              <i class="material-icons">delete</i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><br>
+<h2> Subtasks </h2>
+<div class="container">
+  <div class="row row-fluid">
+    <% @task.subtasks.each do |subtask| %>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-height-indicator"></div>
+          <div class="card-content">
+            <div class="card-body">
+              <div class="pull-right qty" ><strong> <%= subtask.percent %></strong> </div>
+              <h6> <%= subtask.updated_at.strftime("%d %b %Y %l:%M %p") %></h6>
+              <div>
+                <h3><%= subtask.text %></h3>
+              </div>
+              <div class="pull-right">
+                <%= link_to edit_task_subtask_path(@task,subtask) do %>
+                  <i class="material-icons">mode_edit</i> 
+                <% end %>
+                <%= link_to task_subtask_path(@task,subtask), "data-confirm" => "Are you Sure?", :method => :delete do %>
+                  <i class="material-icons">delete</i>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+  <br>
+</div>
+<%= link_to "Add Subtask",new_task_subtask_path(@task), class: "btn btn-info btn-raised" %>

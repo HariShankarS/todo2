@@ -1,20 +1,10 @@
 class SubtasksController < ApplicationController
-  before_action :set_subtask, only: [:show, :edit, :update, :destroy]
-
-  # GET /subtasks
-  # GET /subtasks.json
-  def index
-    @subtasks = Subtask.all
-  end
-
-  # GET /subtasks/1
-  # GET /subtasks/1.json
-  def show
-  end
+  before_action :set_subtask, only: [:destroy, :edit, :update]
+  before_action :set_task
 
   # GET /subtasks/new
   def new
-    @subtask = Subtask.new
+    @subtask = @task.subtasks.new
   end
 
   # GET /subtasks/1/edit
@@ -25,10 +15,9 @@ class SubtasksController < ApplicationController
   # POST /subtasks.json
   def create
     @subtask = Subtask.new(subtask_params)
-
     respond_to do |format|
       if @subtask.save
-        format.html { redirect_to @subtask, notice: 'Subtask was successfully created.' }
+        format.html { redirect_to @task, notice: 'Subtask was successfully created.' }
         format.json { render :show, status: :created, location: @subtask }
       else
         format.html { render :new }
@@ -42,7 +31,7 @@ class SubtasksController < ApplicationController
   def update
     respond_to do |format|
       if @subtask.update(subtask_params)
-        format.html { redirect_to @subtask, notice: 'Subtask was successfully updated.' }
+        format.html { redirect_to @task, notice: 'Subtask was successfully updated.' }
         format.json { render :show, status: :ok, location: @subtask }
       else
         format.html { render :edit }
@@ -56,7 +45,7 @@ class SubtasksController < ApplicationController
   def destroy
     @subtask.destroy
     respond_to do |format|
-      format.html { redirect_to subtasks_url, notice: 'Subtask was successfully destroyed.' }
+      format.html { redirect_to @task, notice: 'Subtask was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +54,10 @@ class SubtasksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_subtask
       @subtask = Subtask.find(params[:id])
+    end
+
+    def set_task
+    @task = Task.find(params[:task_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :subtasks
-  resources :tasks
+  
+  resources :tasks do
+    resources :subtasks
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,9 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Text:</strong>
+  <strong><h2> Task: </h2></strong>
   <%= @task.text %>
+  <strong> <%= number_to_percentage(@task.percent, :precision => 1) %> </strong>
 </p>
-
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>
+
+<h3> Subtasks </h3>
+
+<% @task.subtasks.each do |subtask| %>
+  <%= subtask.text %>
+  <% if subtask.finished? %>
+    100 %
+  <% else %>
+    0 %
+  <% end -%><br>
+  <%= link_to "Edit",edit_task_subtask_path(@task,subtask) %>|
+  <%= link_to 'Destroy', task_subtask_path(@task,subtask), method: :delete, data: { confirm: 'Are you sure?' } %>  <br>
+<% end -%>
+<br>
+<%= link_to "Add Subtask",new_task_subtask_path(@task) %>

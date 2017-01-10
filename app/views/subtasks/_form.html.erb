@@ -1,4 +1,4 @@
-<%= form_for(@subtask) do |f| %>
+<%= form_for [@task, @subtask] do |f| %>
   <% if @subtask.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@subtask.errors.count, "error") %> prohibited this subtask from being saved:</h2>
@@ -20,8 +20,7 @@
     <%= f.check_box :finished %>
   </div>
   <div class="field">
-    <%= f.label :parent_id %><br>
-    <%= f.number_field :parent_id %>
+    <%= f.hidden_field(:parent_id, :value => params[:task_id]) %>
   </div>
   <div class="actions">
     <%= f.submit %>
